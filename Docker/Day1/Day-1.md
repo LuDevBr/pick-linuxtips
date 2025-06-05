@@ -328,4 +328,6 @@ docker container create --name opa nginx
 ```
 
 ## Desafio pratico do Day 1
-- Instalar o Docker no Linux.
+Instalar o Docker no Linux.
+
+- Utilizada uma [Vagrantbox Ubuntu 22.04](./Desafio-Day1/Vagrantfile) e um [shell script](./Desafio-Day1/script.sh) para automatizar a instalação do Docker e configuração do rootless mode.
