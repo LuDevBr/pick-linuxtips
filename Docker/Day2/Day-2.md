@@ -375,5 +375,40 @@ docker push
 - Rodar Nginx com entrypoint
 
 ## Desafio prático 2
-- Resolver problemas contruindo Dockerfiles performáticos
-    - Montar uma imagem de container a partir de uma app - contruir um Dockerfile e subir para o DockerHub
+Resolver problemas contruindo Dockerfiles performáticos
+- Montar uma imagem de container a partir de uma app - contruir um Dockerfile e subir para o DockerHub
+  
+Para esse exemplo, usei um API simples em Python que retorna requests de status HTTP.
+
+- Api
+```python
+from flask import Flask, request, jsonify
+
+app = Flask (__name__)
+
+PORT = 5000
+
+@app.route('/', methods=['GET'])
+def home():
+  return "Ok", 200
+
+@app.errorhandler(404)
+def not_found(e):
+  return "Not found", 404
+
+
+if __name__ == '__main__':
+  app.run(host='0.0.0.0',port=PORT)
+```
+- Dockerfile
+```docker
+FROM python:3.10-alpine
+LABEL maintainer="contato@lu.dev.br"
+WORKDIR /app
+COPY . ./
+RUN apk add --no-cache curl \
+    && pip install --no-cache-dir -r requirements.txt
+EXPOSE 3000
+CMD ["python", "app.py"]
+HEALTHCHECK --timeout=5s --interval=30s --retries=3 CMD curl -f localhost:3000 || exit 1
+```

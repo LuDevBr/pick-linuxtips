@@ -21,7 +21,7 @@
   - [8 - Visualizando métricas e a utilização de recursos pelos containers](#8---visualizando-métricas-e-a-utilização-de-recursos-pelos-containers)
   - [9 - Visualizando e inspecionando imagens e containers](#9---visualizando-e-inspecionando-imagens-e-containers)
   - [10 - Criando um container Dettached e o Docker exec](#10---criando-um-container-dettached-e-o-docker-exec)
-  - [Desafio pratico do Day 1](#desafio-pratico-do-day-1)
+  - [Desafio prático do Day 1](#desafio-prático-do-day-1)
 
 
 ## 1 - O que é um container?
@@ -327,7 +327,7 @@ docker pull centos:7
 docker container create --name opa nginx
 ```
 
-## Desafio pratico do Day 1
+## Desafio prático do Day 1
 Instalar o Docker no Linux.
 
 - Utilizada uma [Vagrantbox Ubuntu 22.04](./Desafio-Day1/Vagrantfile) e um [shell script](./Desafio-Day1/script.sh) para automatizar a instalação do Docker e configuração do rootless mode.

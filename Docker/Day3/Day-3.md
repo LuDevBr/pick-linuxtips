@@ -12,6 +12,7 @@
     - [Usando o Trivy](#usando-o-trivy)
   - [6 - Utilizando o Docker Scout](#6---utilizando-o-docker-scout)
   - [7 - Assinando nossa imagem e adicionando ao registry](#7---assinando-nossa-imagem-e-adicionando-ao-registry)
+  - [Desafio prático 1](#desafio-prático-1)
 
 
 ## 1 - Conhecendo a App que precisamos transformar em container
@@ -122,16 +123,17 @@ ENTRYPOINT ["flask","run","--host=0.0.0.0"]
 ```
 
 ### Referências
-[Changuard](https://images.chainguard.dev/)
+- [Chainguard](https://images.chainguard.dev/)
 
 ## 5 - Utilizando o Trivy para verificar vulnerabilidades
 
 O Trivy é um scanner de segurança abrangente e versátil. Ferramenta de código aberto, ele possui scanners que procuram problemas de segurança e aponta onde pode encontrar esses problemas:
-    - Pacotes de sistema operacional e dependências de software em uso (SBOM)
-    - Vulnerabilidades conhecidas (CVEs)
-    - Problemas e configurações incorretas de IaC
-    - Informações confidenciais e segredos
-    - Licenças de software
+
+- Pacotes de sistema operacional e dependências de software em uso (SBOM)
+- Vulnerabilidades conhecidas (CVEs)
+- Problemas e configurações incorretas de IaC
+- Informações confidenciais e segredos
+- Licenças de software
 
 Para instalação, siga a documuentação oficial do Trivy: [Trivy Installation](https://trivy.dev/latest/getting-started/installation/).
 
@@ -146,18 +148,21 @@ trivy image giropops-senhas:3.2
 
 ## 6 - Utilizando o Docker Scout
 
-Solução do Docker para aprimorar proativamente a segurança da cadeia de suprimentos de software
-- ajuda a identificar e corrigir vulnerabilidades em suas imagens de containers
-Ao analisar suas imagens, o Docker Scout cria um inventário completo dos pacotes e camadas, também conhecido como Software Bill of Materials (SBOM).
-- Este inventário é então correlacionado com um banco de dados de vulnerabilidades atualizado continuamente para identificar possíveis problemas de segurança
-É integrado ao Docker Desktop e ao Docker Hub
-Também pode ser usado em um pipeline de integração contínua, através da interface de linha de comando (CLI) do Docker e no Docker Scout Dashboard
+Solução do Docker para aprimorar proativamente a segurança da cadeia de suprimentos de software.
 
-Commandos
-- `compare` para comparar duas imagens
-- `cves` para exibir as vulnerabilidades conhecidas
-- `quickview` para uma visão geral rápida de uma imagem
-  `recommendations` para exibir atualizações de imagens base disponíveis e recomendações de correção
+O Scout:
+- Ajuda a identificar e corrigir vulnerabilidades em suas imagens de containers; ao analisar as imagens, o Docker Scout cria um inventário completo dos pacotes e camadas, também conhecido como Software Bill of Materials (SBOM);
+- Este inventário é então correlacionado com um banco de dados de vulnerabilidades atualizado continuamente para identificar possíveis problemas de segurança
+- É integrado ao Docker Desktop e ao Docker Hub;
+- Também pode ser usado em uma pipeline de integração contínua, através da interface de linha de comando (CLI) do Docker e no Docker Scout Dashboard.
+
+**Comandos**
+- `compare`: para comparar duas imagens
+- `cves`: para exibir as vulnerabilidades conhecidas
+- `quickview`: para uma visão geral rápida de uma imagem
+  `recommendations`: para exibir atualizações de imagens base disponíveis e recomendações de correção
+
+**Instalação e uso básico do Docker Scout**:
 
 ```bash
 ## Instalação 
@@ -176,8 +181,8 @@ docker scout recommendations <nome_da_imagem:tag>
 ## 7 - Assinando nossa imagem e adicionando ao registry
 Para assinar imagens de container podemos usar o Cosign, uma ferramenta que permite assinar e verificar imagens de container, garantindo a integridade e autenticidade das mesmas.
 
- [Sigstore](https://www.sigstore.dev/)
- [Cosign](https://github.com/sigstore/cosign)
+- [Sigstore](https://www.sigstore.dev/)
+- [Cosign](https://github.com/sigstore/cosign)
 
 ```bash
 ## Instalando o Cosign 
@@ -198,3 +203,6 @@ cosign sign --key cosign.key ludsilva/giropops-senhas:3.0
 cosign verify --key cosign.pub nome_usuario_docker_hub/nome_da_images:tag
 cosign verify --key cosign.pub ludsilva/giropops-senhas:3.0
 ```
+
+## Desafio prático 1
+- Criar uma imagem Distroless / Chainguard, sem vulnerabilidades.

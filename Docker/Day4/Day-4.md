@@ -15,14 +15,14 @@
 ## 1 - O que são Volumes e seus tipos
 
 Volumes são diretórios externos ao container, que são montados diretamente nele, e dessa forma bypassam seu filesystem, ou seja, não seguem o padrão de camadas.
-- Principal função de persistir dados
+- Principal função é de persistir dados
 
 Particularidades:
-- O volume é inicializado quando o container é criado.
-- Caso ocorra de já haver dados no diretório em que você está montando como volume, ou seja, se o diretório já existe e está "populado" na imagem base, aqueles dados serão copiados para o volume.
-- Um volume pode ser reusado e compartilhado entre containers.
-- Alterações em um volume são feitas diretamente no volume.
-- Alterações em um volume não irão com a imagem quando você fizer uma cópia ou snapshot de um container.
+- O volume é inicializado quando o container é criado;
+- Caso ocorra de já haver dados no diretório em que você está montando como volume, ou seja, se o diretório já existe e está "populado" na imagem base, aqueles dados serão copiados para o volume;
+- Um volume pode ser reusado e compartilhado entre containers;
+- Alterações em um volume são feitas diretamente no volume;
+- Alterações em um volume não irão com a imagem quando você fizer uma cópia ou snapshot de um container;
     - Volumes continuam a existir mesmo se você deletar o container.
 
 **Tipos**
@@ -37,7 +37,7 @@ Particularidades:
 
 ## 2 - Criando volume do tipo Bind
 
-Com o bind, um arquivo ou diretório do host é montado para um container;
+Com o bind, um arquivo ou diretório do host é montado para um container.
 
 Qual flag escolher? `-v` ou `--mount`? 
 - a flag `--mount` é mais explícita e detalhada
@@ -122,12 +122,16 @@ docker container run -d --name web-2 -v giropops:/usr/share/nginx/html:ro -p 809
 
 O Docker usa **Storage Drivers** para armazenar camadas de imagem e dados na camada gravável de um container.
 
+Como os drivers podem ter desempenho inferior em gravações intensivas, especialmente em sistemas de copy-on-write, aplicações como bancos de dados sofrem impacto. 
+
+Por isso, para dados persistentes, de alta escrita ou compartilhados entre containers, a prática recomendada é usar volumes Docker.
+
 #### Referência
 - [Docker Docs: Storage drivers](https://docs.docker.com/engine/storage/drivers/)
 
 ## 5 - Criando volume do tipo tmpfs
 
-- Volume temporário e persiste apenas na memória do host
+O tmpfs é um volume temporário que persiste apenas na memória do host.
 
 ```bash
 ## Usando a flag mount
