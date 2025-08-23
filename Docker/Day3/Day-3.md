@@ -206,3 +206,4 @@ cosign verify --key cosign.pub ludsilva/giropops-senhas:3.0
 
 ## Desafio prático 1
 - Criar uma imagem Distroless / Chainguard, sem vulnerabilidades.
+O desafio pode ser encontrado no repositório do Github: [Docker-multistage-distroless](https://github.com/ludsilva/docker-multistage-distroless)

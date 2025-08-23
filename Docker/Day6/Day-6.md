@@ -65,7 +65,7 @@ services:
     networks:
       - giropops
     environment:
-	    REDIS_HOST: redis
+      REDIS_HOST: redis
   redis:
     image: redis
     ports:
