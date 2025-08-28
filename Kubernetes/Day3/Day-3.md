@@ -1,4 +1,19 @@
 # Índice - Day 3
+- [Índice - Day 3](#índice---day-3)
+  - [1 - O que é um Deployment](#1---o-que-é-um-deployment)
+      - [Documentação](#documentação)
+  - [2 - Criando um Deployment através de um manifesto](#2---criando-um-deployment-através-de-um-manifesto)
+    - [Comandos - aplicando o Deployment](#comandos---aplicando-o-deployment)
+  - [3 - Criando mais Deployments e vendo os detalhes](#3---criando-mais-deployments-e-vendo-os-detalhes)
+  - [4 - Como atualizar um Deployment](#4---como-atualizar-um-deployment)
+    - [Exemplo](#exemplo)
+  - [5 - Estratégias de atualizações de nossos Deployments](#5---estratégias-de-atualizações-de-nossos-deployments)
+    - [Estratégia Rolling Update](#estratégia-rolling-update)
+    - [Estratégia Recriate](#estratégia-recriate)
+      - [Documentação](#documentação-1)
+  - [6 - Fazendo Rollback e conhecendo o Rollout](#6---fazendo-rollback-e-conhecendo-o-rollout)
+      - [Documentação](#documentação-2)
+  - [Desafio Day 3](#desafio-day-3)
 
 ## 1 - O que é um Deployment
 

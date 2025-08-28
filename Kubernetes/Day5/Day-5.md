@@ -1,4 +1,25 @@
 # Índice - Day 5
+- [Índice - Day 5](#índice---day-5)
+  - [1 - O que é um cluster Kubernetes](#1---o-que-é-um-cluster-kubernetes)
+      - [Documentação](#documentação)
+  - [2 - Diferentes formas de instalar um cluster Kubernetes](#2---diferentes-formas-de-instalar-um-cluster-kubernetes)
+  - [3 - Recomendações antes de começar](#3---recomendações-antes-de-começar)
+      - [Documentação](#documentação-1)
+    - [Criando as instâncias para o nosso cluster](#criando-as-instâncias-para-o-nosso-cluster)
+  - [4 - Configurando os nossos nodes](#4---configurando-os-nossos-nodes)
+  - [5 - Instalando e configurando o Containerd](#5---instalando-e-configurando-o-containerd)
+    - [Configurando as portas](#configurando-as-portas)
+  - [6 - Incializando o nosso cluster e o admin.conf](#6---incializando-o-nosso-cluster-e-o-adminconf)
+    - [Entendendo o arquivo admin.conf](#entendendo-o-arquivo-adminconf)
+    - [Seções do arquivo](#seções-do-arquivo)
+    - [Diretórios dos certificados](#diretórios-dos-certificados)
+      - [Documentação](#documentação-2)
+  - [7 - Adicionando os outros nodes e o que é CNI](#7---adicionando-os-outros-nodes-e-o-que-é-cni)
+    - [O que é o CNI?](#o-que-é-o-cni)
+    - [Instalando o Weave Net](#instalando-o-weave-net)
+      - [Documentação](#documentação-3)
+  - [8 - Visualizando mais informações sobre os nodes](#8---visualizando-mais-informações-sobre-os-nodes)
+    - [Desafio Day 5](#desafio-day-5)
 
 ## 1 - O que é um cluster Kubernetes
 
@@ -384,3 +405,6 @@ kubectl get nodes k8s-3 -o wide
 
 Realizar a instalação do cluster Kubernetes utilizando o Kubeadm. Use a criatividade e teste diferentes plugins de redes.
 - O mais importante é você ter um cluster Kubernetes funcionando e pronto para ser utilizado, e mais do que isso, é importante que você entenda como o cluster funciona e sinta-se confortável para realizar sua manutenção e a administração.
+
+**Exemplo de cluster k8s criado no Vagrant**:
+- Você pode acessar [este repositório](https://github.com/ludsilva/cluster-k8s-vagrant) para verificar o projeto com detalhes.

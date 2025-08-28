@@ -1,4 +1,20 @@
 # Índice - Day 6
+- [Índice - Day 6](#índice---day-6)
+  - [1 - O que são volumes](#1---o-que-são-volumes)
+      - [Documentação](#documentação)
+  - [2 - O StorageClass](#2---o-storageclass)
+      - [Manifesto](#manifesto)
+      - [Documentação](#documentação-1)
+  - [3 - PV - PersistentVolume](#3---pv---persistentvolume)
+      - [Documentação](#documentação-2)
+  - [4 - PV - PersistentVolume com NFS](#4---pv---persistentvolume-com-nfs)
+    - [Criar o StorageClass para o provisionador `nfs`](#criar-o-storageclass-para-o-provisionadornfs)
+  - [5 - PVC - PersistentVolumeClaim](#5---pvc---persistentvolumeclaim)
+    - [Passos](#passos)
+    - [1, 2, 3, Testando…](#1-2-3-testando)
+      - [Documentação](#documentação-3)
+  - [Desafio Day 6](#desafio-day-6)
+    - [StorageClass + Deployment + PV/PVC](#storageclass--deployment--pvpvc)
 
 ## 1 - O que são volumes
 
@@ -172,7 +188,7 @@ kubectl describe pv meu-pv
 ```
 
 #### Documentação
--[Kubernetes Doc - Persistent Volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
+- [Kubernetes Doc - Persistent Volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
 
 
 ## 4 - PV - PersistentVolume com NFS
@@ -376,4 +392,116 @@ kubectl exec -ti nginx-pod -- curl localhost
 
 ## Desafio Day 6
 
-A sua lição de casa é criar um deployment do Nginx, que possua um volume montado no `/usr/share/nginx/html`. Fique a vontade em utilizar diferentes tipos de provisionadores e/ou diferentes tipos de PV. Deixe a sua imaginação te guiar e aproveite para estudar as diferentes aplicabilidades.
+A sua lição de casa é criar um deployment do Nginx, que possua um volume montado no `/usr/share/nginx/html`.
+
+### StorageClass + Deployment + PV/PVC
+
+**Exemplo usando `hostPath`:**
+
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: desafio
+provisioner: kubernetes.io/no-provisioner
+reclaimPolicy: Retain
+volumeBindingMode: WaitForFirstConsumer
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nginx-volume-pv
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath: 
+    path: "/tmp/nginx-data"
+  storageClassName: desafio
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nginx-volume-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: desafio
+  selector:
+    matchLabels:
+      type: local
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx-deployment-desafio
+  name: nginx-deployment-desafio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-deployment-desafio
+  strategy: 
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: nginx-deployment-desafio
+    spec:
+      containers:
+      - image: nginx:1.20.1
+        name: nginx
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: nginx-volume-pvc
+        resources:
+          requests:
+            memory: 64Mi
+            cpu: 0.3
+          limits:
+            memory: 128Mi
+            cpu: 0.5
+        startupProbe:
+          tcpSocket:
+            port: 80
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+        livenessProbe:
+          tcpSocket:
+            port: 80
+          initialDelaySeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            tcpSocket:
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 3
+          successThreshold: 1
+      volumes:
+      - name: nginx-volume-pvc
+        persistentVolumeClaim:
+          claimName: nginx-volume-pvc
+```
+
+- OBS: como o `hostPath` usa um diretório local do node, temos só um pod (uma réplica) no exemplo - poderíamos também forçar os pods subir no mesmo node. Além disso, para referenciar um volume local usando o kind e manter mesmo quando o cluster for excluído, foi gerado um novo arquivo `kind.yaml`. Você pode utilizar os **Extra Mounts** do kind, conforme [documentação oficial](https://kind.sigs.k8s.io/docs/user/configuration/#extra-mounts).

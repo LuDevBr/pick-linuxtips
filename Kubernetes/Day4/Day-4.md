@@ -1,4 +1,34 @@
 # Índice - Day 4
+- [Índice - Day 4](#índice---day-4)
+  - [1 - O que é um ReplicaSet?](#1---o-que-é-um-replicaset)
+      - [Documentação](#documentação)
+  - [2 - O Deployment e o ReplicaSet](#2---o-deployment-e-o-replicaset)
+      - [Documentação](#documentação-1)
+  - [3 - Criando o nosso ReplicaSet](#3---criando-o-nosso-replicaset)
+  - [4 - O que é um DaemonSet](#4---o-que-é-um-daemonset)
+      - [Documentação](#documentação-2)
+  - [5 - Criando o nosso DaemonSet](#5---criando-o-nosso-daemonset)
+  - [6 - Porque não usamos o kubectl create agora](#6---porque-não-usamos-o-kubectl-create-agora)
+  - [7 - O que são as Probes no Kubernetes](#7---o-que-são-as-probes-no-kubernetes)
+      - [Documentação](#documentação-3)
+  - [8 - Liveness Probe](#8---liveness-probe)
+    - [TCP liveness probe](#tcp-liveness-probe)
+    - [Teste de falha](#teste-de-falha)
+    - [liveness HTTP request](#liveness-http-request)
+    - [Teste de falha](#teste-de-falha-1)
+      - [Documentação](#documentação-4)
+  - [9 - Readiness Probe](#9---readiness-probe)
+    - [readiness HTTP request](#readiness-http-request)
+    - [Teste de falha](#teste-de-falha-2)
+  - [10 - StartUp Probe](#10---startup-probe)
+    - [Entendendo a falha](#entendendo-a-falha)
+  - [11 - Exemplo com todas as probes](#11---exemplo-com-todas-as-probes)
+  - [Desafio Day 4](#desafio-day-4)
+    - [Manifesto 1](#manifesto-1)
+    - [Manifesto 2](#manifesto-2)
+    - [Manifesto 3](#manifesto-3)
+
+
 
 ## 1 - O que é um ReplicaSet?
 
